@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RMA</string>
+    <string name="app_name" translatable="false">RMA</string>
+    <string name="fav">Favourite movies</string>
+    <string name="rec">Upcoming movies</string>
 </resources>
