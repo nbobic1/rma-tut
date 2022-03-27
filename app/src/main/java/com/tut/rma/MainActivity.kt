@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : AppCompatActivity() {
     private lateinit var favoriteMovies: RecyclerView
     private lateinit var favoriteMoviesAdapter: MovieListAdapter
-    private lateinit var recomMovies: RecyclerView
+    private lateinit var recomMovies : RecyclerView
     private lateinit var recomMoviesAdapter: MovieListAdapter
     private var movieListViewModel = MovieListViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
