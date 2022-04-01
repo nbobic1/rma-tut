@@ -36,10 +36,10 @@ fun recentMovies(): List<Movie> {
             "A discharged U.S. Special Forces sergeant, James Harper, risks everything for his family when he joins a private contracting organization.",
             "01.04.2022.","https://www.imdb.com/title/tt10323676/",
             "b"),
-        Movie(1,"Mozaj",
-            "A discharged U.S. Special Forces sergeant, James Harper, risks everything for his family when he joins a private contracting organization.",
+        Movie(1,"Pulp Fiction",
+            "A discharged U.S. Special Forces sergeant, James Harper,pair of diner bandits, risks everything for his family when he joins a private contracting organization.",
             "01.04.2022.","https://www.imdb.com/title/tt10323676/",
-            "c")
+            "crime")
 //Dodajte filmove po želji
     )
 }
