@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             false
         )
         favoriteMoviesAdapter = MovieListAdapter(listOf()) { movie -> showMovieDetails(movie) }
-        favoriteMovies.adapter = favoriteMoviesAdapter
+        favoriteMovies.adapter =  favoriteMoviesAdapter
         favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
 
         recomMoviesAdapter = MovieListAdapter(listOf()) { movie -> showMovieDetails(movie) }
