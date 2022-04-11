@@ -115,6 +115,8 @@ class MainActivity2 : AppCompatActivity() {
         if (id===0) id=context.resources
             .getIdentifier("picture1", "drawable", context.packageName)
         poster.setImageResource(id)
+
+        budon.selectedItemId=R.id.accters
     }
 
 }
