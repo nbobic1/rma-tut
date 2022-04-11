@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieListAdapter (private var movies :List<Movie>,  private val onItemClicked: (movie:Movie) -> Unit) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter (private var movies :List<Movie>,  private val onItemClicked: (movie:Movie,view:View,view2:View) -> Unit) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder
     {
         val view = LayoutInflater
@@ -19,7 +19,7 @@ class MovieListAdapter (private var movies :List<Movie>,  private val onItemClic
     override fun getItemCount(): Int = movies.size
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.movieTitle.text = movies[position].title
-        holder.itemView.setOnClickListener{ onItemClicked(movies[position]) }
+        holder.itemView.setOnClickListener{ onItemClicked(movies[position],holder.movieImage,holder.movieTitle) }
         val genreMatch: String = movies[position].genre
 //Pronalazimo id drawable elementa na osnovu naziva žanra
         val context: Context = holder.movieImage.getContext()

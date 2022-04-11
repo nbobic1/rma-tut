@@ -9,7 +9,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentContainerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity2 : AppCompatActivity() {
     private var movieDetailViewModel =  MovieDetailViewModel()
@@ -21,9 +24,36 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var website : TextView
     private lateinit var share : FloatingActionButton
     private lateinit var poster : ImageView
+    private lateinit var budon: BottomNavigationView
+    private lateinit var frego: FragmentContainerView
+    private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
+        when (item.itemId) {
+            R.id.accters -> {
+                val favoritesFragment = MainActivity2Fregment.newInstance(movieDetailViewModel.getMovieByTitle(title.text.toString()).accter)
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragmentContainerView2, favoritesFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+                return@OnItemSelectedListener true
+            }
+            R.id.similar -> {
+                val favoritesFragment = MainActivity2Fregment.newInstance(movieDetailViewModel.getMovieByTitle(title.text.toString()).similar)
+                 val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragmentContainerView2, favoritesFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+                return@OnItemSelectedListener true
+            }
+
+        }
+        false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        budon=findViewById(R.id.dugmad)
+        frego=findViewById(R.id.fragmentContainerView2)
+        budon.setOnItemSelectedListener(mOnItemSelectedListener)
         title = findViewById(R.id.movie_title)
         overview = findViewById(R.id.movie_overview)
         releaseDate = findViewById(R.id.movie_release_date)

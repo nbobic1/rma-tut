@@ -2,4 +2,9 @@
     <string name="app_name" translatable="false">RMA</string>
     <string name="fav">Favourite movies</string>
     <string name="rec">Upcoming movies</string>
+    <string name="favoritesText">Favourites</string>
+    <string name="favorite">Favourites1</string>
+    <string name="search">Search</string>
+    <string name="recent">Recent</string>
+    <string name="recentText">recent</string>
 </resources>

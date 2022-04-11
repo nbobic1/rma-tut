@@ -7,4 +7,17 @@ class MovieListViewModel {
     fun getRecentMovies():List<Movie>{
         return MovieRepository.getRecentMovies();
     }
+    fun getAccters(m:Movie ):List<String>
+    {
+        var k= MovieRepository.getFavoriteMovies()
+        k.toMutableList().addAll(MovieRepository.getRecentMovies());
+        return k.get(k.indexOf(m)).accter
+    }
+
+    fun getSimilars(m:Movie ):List<String>
+    {
+        var k= MovieRepository.getFavoriteMovies()
+        k.toMutableList().addAll(MovieRepository.getRecentMovies());
+        return k.get(k.indexOf(m)).similar
+    }
 }

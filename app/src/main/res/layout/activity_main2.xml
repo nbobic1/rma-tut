@@ -30,6 +30,7 @@
             <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
+                android:transitionName="poster"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
         <androidx.constraintlayout.widget.Guideline
@@ -76,13 +77,14 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/movie_poster_card"
             app:layout_constraintTop_toBottomOf="@id/movie_poster_card" />
+
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/movie_poster_title_barrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="movie_release_date,movie_poster_card,movie_genre,movie_website"
-tools:layout_editor_absoluteY="379dp" />
+            tools:layout_editor_absoluteY="379dp" />
         <TextView
             android:id="@+id/movie_overview"
             android:layout_width="match_parent"
@@ -100,15 +102,39 @@ tools:layout_editor_absoluteY="379dp" />
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            app:backgroundTint="@color/highlightColor"
             android:clickable="true"
             android:contentDescription="@string/fav"
             android:src="@android:drawable/ic_menu_share"
             android:tint="#FF1F5F"
+            app:backgroundTint="@color/highlightColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_overview" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_overview"
+            app:layout_constraintVertical_bias="0.562" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView2"
+            android:name="com.tut.rma.MainActivity2Fregment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/dugmad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_overview"
+            tools:layout_constraintTop_toBottomOf="@id/movie_overview" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/dugmad"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/navigation2"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
