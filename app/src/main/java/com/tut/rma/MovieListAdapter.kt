@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieListAdapter (private var movies :List<Movie>,  private val onItemClicked: (movie:Movie,view:View,view2:View) -> Unit) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter (private var  movies :List<Movie>,  private val onItemClicked: (movie:Movie,view:View,view2:View) -> Unit) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder
     {
         val view = LayoutInflater
