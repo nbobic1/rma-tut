@@ -16,26 +16,25 @@ import android.widget.ArrayAdapter as ArrayAdapter
 
 class MainActivity2Fregment(): Fragment() {
     private lateinit var favoriteMovies: RecyclerView
-    private var utt=StringAdapter(listOf())
+  var utt=StringAdapter(listOf())
     private var lizu:List<String> =listOf()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        println("koaglga")
         var view =  inflater.inflate(R.layout.main2_fragment, container, false)
         favoriteMovies = view.findViewById(R.id.lista)
         favoriteMovies.layoutManager=LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         favoriteMovies.adapter=utt
-            utt.updateMovies(lizu)
+        utt.updateMovies(lizu)
         return view
     }
     companion object {
         fun newInstance(zu:List<String>): MainActivity2Fregment {
-          var t=MainActivity2Fregment()
+            var t=MainActivity2Fregment()
             t.lizu=zu
             return t
         }
     }
     fun proijeni(lis:List<String>){
-
+        utt.updateMovies(lis)
     }
 
 }

@@ -12,11 +12,9 @@ import org.w3c.dom.Text
 class StringAdapter(private var movies :List<String>) : RecyclerView.Adapter<StringAdapter.TextViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder
     {
-        println("moguci prog")
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.string_adapter, parent, false)
-        println("prosao problem-----fsdfs")
         return TextViewHolder(view)
     }
     override fun getItemCount(): Int = movies.size
