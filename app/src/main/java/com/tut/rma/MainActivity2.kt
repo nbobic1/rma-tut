@@ -1,20 +1,25 @@
 package com.tut.rma
 
+import android.app.NotificationManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentContainerView
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity2 : AppCompatActivity() {
+    private val posterPath = "https://image.tmdb.org/t/p/w780"
+    private val backdropPath = "https://image.tmdb.org/t/p/w500"
     private var movieDetailViewModel =  MovieDetailViewModel()
     private lateinit var movie: Movie
     private lateinit var title : TextView
@@ -26,6 +31,7 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var poster : ImageView
     private lateinit var budon: BottomNavigationView
     private lateinit var frego: FragmentContainerView
+    private lateinit var backdrop : ImageView
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.accters -> {
@@ -51,6 +57,7 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        backdrop=findViewById(R.id.movie_backdrop)
         budon=findViewById(R.id.dugmad)
         frego=findViewById(R.id.fragmentContainerView2)
         budon.setOnItemSelectedListener(mOnItemSelectedListener)
@@ -85,6 +92,14 @@ class MainActivity2 : AppCompatActivity() {
             showWebsite()
         }
         val extras = intent.extras
+
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as
+                NotificationManager
+        notificationManager.cancel(123)
+        if(intent?.getSerializableExtra("movie")!==null) {
+            movie=intent?.getSerializableExtra("movie") as Movie
+            populateDetails2()
+        }
         if (extras != null) {
             movie = movieDetailViewModel.getMovieByTitle(extras.getString("movie_title",""))
             populateDetails()
@@ -116,5 +131,32 @@ class MainActivity2 : AppCompatActivity() {
             .getIdentifier("picture1", "drawable", context.packageName)
         poster.setImageResource(id)
     }
-
+    private fun populateDetails2() {
+        title.text=movie.title
+        releaseDate.text=movie.releaseDate
+        genre.text=movie.genre
+        website.text=movie.homepage
+        overview.text=movie.overview
+        val context: Context = poster.getContext()
+        var id = 0;
+        if (movie.genre!==null)
+            id = context.getResources()
+                .getIdentifier(movie.genre, "drawable", context.getPackageName())
+        if (id===0) id=context.getResources()
+            .getIdentifier("picture1", "drawable", context.getPackageName())
+        Glide.with(context)
+            .load(posterPath + movie.posterPath)
+            .placeholder(R.drawable.b)
+            .error(id)
+            .fallback(id)
+            .into(poster);
+        var backdropContext: Context = backdrop.getContext()
+        Glide.with(backdropContext)
+            .load(backdropPath + movie.backdropPath)
+            .centerCrop()
+            .placeholder(R.drawable.c)
+            .error(R.drawable.c)
+            .fallback(R.drawable.c)
+            .into(backdrop);
+    }
 }

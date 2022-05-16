@@ -29,7 +29,7 @@ class FavoriteMoviesFragment : Fragment() {
     private fun showMovieDetails(movie: Movie, view1: View,view2:View) {
         val intent = Intent(activity, MainActivity2::class.java).apply {
             putExtra("movie_title", movie.title)
-            putExtra("movie",Movie(-1,"","","","","",listOf(),listOf(),""))
+            putExtra("movie",Movie(-1,"","","","","",listOf(),listOf(),"",null))
         }
         val options = ActivityOptions
             .makeSceneTransitionAnimation(activity,  UtilPair.create(view1, "poster"),

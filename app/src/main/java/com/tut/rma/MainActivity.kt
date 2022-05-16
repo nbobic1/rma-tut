@@ -2,6 +2,7 @@ package com.tut.rma
 import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
 import android.view.Window
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnItemSelectedListener true
             }
             R.id.navigation_recent -> {
+                println("ELESLGJSKLGJLJGLSJLSG")
                 val recentFragments = RecentMoviesFragment.newInstance()
                 openFragment(recentFragments)
                 return@OnItemSelectedListener true
@@ -51,6 +53,14 @@ class MainActivity : AppCompatActivity() {
             exitTransition = Fade()
         }
         setContentView(R.layout.activity_mainv2)
+        Intent(this, LatestMovieService::class.java).also {
+//Različito pokretanje u ovisnosti od verzije
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(it)
+                return
+            }
+            startService(it)
+        }
         if(intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain")
             handleSendText(intent)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

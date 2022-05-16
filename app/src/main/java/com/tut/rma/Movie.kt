@@ -3,13 +3,14 @@ package com.tut.rma
 import java.io.Serializable
 
 data class Movie
-    (val id: Long,
-     val title: String,
-     val overview: String,
-     val releaseDate: String,
-     val homepage: String?,
-     val genre: String?,
-     val accter:List<String>,
-     val similar:List<String>,
-     val posterPath:String
+    (var id: Long,
+     var title: String,
+     var overview: String,
+     var releaseDate: String,
+     var homepage: String?,
+     var genre: String?,
+     var accter:List<String>,
+     var similar:List<String>,
+     var posterPath:String,
+     var backdropPath:String?
       ):Serializable
