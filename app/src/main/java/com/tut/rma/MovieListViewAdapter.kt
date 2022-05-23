@@ -28,6 +28,19 @@ class MovieListViewModel (private val searchDone: ((movies: List<Movie>) -> Unit
             }
         }
     }
+    fun getUpcoming( onSuccess: (movies: List<Movie>) -> Unit,
+                     onError: () -> Unit){
+        // Create a new coroutine on the UI thread
+        scope.launch{
+            // Make the network call and suspend execution until it finishes
+            val result = MovieRepository.getUpcomingMovies()
+            // Display result of the network request to the user
+            when (result) {
+                is GetMoviesResponse -> onSuccess?.invoke(result.movies)
+                else-> onError?.invoke()
+            }
+        }
+    }
     fun search1(ide:String){
         // Kreira se Coroutine na UI
         scope.launch{
@@ -52,13 +65,15 @@ class MovieListViewModel (private val searchDone: ((movies: List<Movie>) -> Unit
     {
         var k= MovieRepository.getFavoriteMovies()
         k.toMutableList().addAll(MovieRepository.getRecentMovies());
-        return k.get(k.indexOf(m)).accter
+      //  return k.get(k.indexOf(m)).accter
+        return listOf()
     }
 
     fun getSimilars(m:Movie ):List<String>
     {
         var k= MovieRepository.getFavoriteMovies()
         k.toMutableList().addAll(MovieRepository.getRecentMovies());
-        return k.get(k.indexOf(m)).similar
+        //return k.get(k.indexOf(m)).similar
+        return listOf()
     }
 }

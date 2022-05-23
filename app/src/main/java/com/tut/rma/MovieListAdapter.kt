@@ -24,7 +24,7 @@ class MovieListAdapter (private var movies :List<Movie>,private var vrsta:Boolea
         holder.movieTitle.text = movies[position].title
         holder.itemView.setOnClickListener{ onItemClicked(movies[position],holder.movieImage,holder.movieTitle) }
 
-        val genreMatch: String= movies[position].genre.toString()
+        val genreMatch: String= ""//movies[position].genre.toString()
 
 //Pronalazimo id drawable elementa na osnovu naziva žanra
         val context: Context = holder.movieImage.getContext()
@@ -36,7 +36,7 @@ class MovieListAdapter (private var movies :List<Movie>,private var vrsta:Boolea
 
 if(vrsta)
 {
-        val genreMatch1: String? = movies[position].genre
+        //val genreMatch1: String? = movies[position].genre
         val context1: Context = holder.movieImage.getContext()
         var id1: Int = 0;
         if (genreMatch!==null)

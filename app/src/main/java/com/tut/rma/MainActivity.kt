@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnItemSelectedListener true
             }
             R.id.navigation_search -> {
+                println("Seachhhhhhhhhhhhhhhhhhhhhhhh")
                 val searchFragment = SearchFragment.newInstance(" ")
                 openFragment(searchFragment)
                 return@OnItemSelectedListener true
@@ -57,7 +58,8 @@ class MainActivity : AppCompatActivity() {
 //Različito pokretanje u ovisnosti od verzije
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(it)
-                return
+                println("kakca glzpodttttttttt")
+                //return
             }
             startService(it)
         }
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         bottomNavigation = findViewById(R.id.navigationView)
         freg=findViewById(R.id.container)
+        println("agori main...................................")
         bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
 
         //Defaultni fragment

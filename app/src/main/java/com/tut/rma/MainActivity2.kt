@@ -35,7 +35,8 @@ class MainActivity2 : AppCompatActivity() {
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.accters -> {
-                val favoritesFragment = MainActivity2Fregment.newInstance(movieDetailViewModel.getMovieByTitle(title.text.toString()).accter)
+                val favoritesFragment = MainActivity2Fregment.newInstance(
+                    listOf())//movieDetailViewModel.getMovieByTitle(title.text.toString()).accter)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragmentContainerView2, favoritesFragment)
                 transaction.addToBackStack(null)
@@ -43,7 +44,7 @@ class MainActivity2 : AppCompatActivity() {
                 return@OnItemSelectedListener true
             }
             R.id.similar -> {
-                val favoritesFragment = MainActivity2Fregment.newInstance(movieDetailViewModel.getMovieByTitle(title.text.toString()).similar)
+                val favoritesFragment = MainActivity2Fregment.newInstance(listOf())//movieDetailViewModel.getMovieByTitle(title.text.toString()).similar)
                  val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragmentContainerView2, favoritesFragment)
                 transaction.addToBackStack(null)
@@ -100,7 +101,7 @@ class MainActivity2 : AppCompatActivity() {
             movie=intent?.getSerializableExtra("movie") as Movie
             populateDetails2()
         }
-        if (extras != null) {
+        else if (extras != null) {
             movie = movieDetailViewModel.getMovieByTitle(extras.getString("movie_title",""))
             populateDetails()
         } else {
@@ -121,12 +122,11 @@ class MainActivity2 : AppCompatActivity() {
 //        System.out.println("rilffadalsfaljgldajglajgl");
         title.text=movie.title
         releaseDate.text=movie.releaseDate
-        genre.text=movie.genre
+//        genre.text=movie.genre
         website.text=movie.homepage
         overview.text=movie.overview
         val context: Context = poster.context
-        var id: Int = context.resources
-            .getIdentifier(movie.genre.toString().substring(0,1), "drawable", context.packageName)
+        var id: Int =0// context.resources.getIdentifier(movie.genre.toString().substring(0,1), "drawable", context.packageName)
         if (id===0) id=context.resources
             .getIdentifier("picture1", "drawable", context.packageName)
         poster.setImageResource(id)
@@ -134,17 +134,17 @@ class MainActivity2 : AppCompatActivity() {
     private fun populateDetails2() {
         title.text=movie.title
         releaseDate.text=movie.releaseDate
-        genre.text=movie.genre
+//        genre.text=movie.genre
         website.text=movie.homepage
         overview.text=movie.overview
         val context: Context = poster.getContext()
         var id = 0;
-        if (movie.genre!==null)
+  /*      if (movie.genre!==null)
             id = context.getResources()
                 .getIdentifier(movie.genre, "drawable", context.getPackageName())
         if (id===0) id=context.getResources()
             .getIdentifier("picture1", "drawable", context.getPackageName())
-        Glide.with(context)
+    */    Glide.with(context)
             .load(posterPath + movie.posterPath)
             .placeholder(R.drawable.b)
             .error(id)
