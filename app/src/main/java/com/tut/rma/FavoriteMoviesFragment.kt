@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +15,25 @@ class FavoriteMoviesFragment : Fragment() {
         private lateinit var favoriteMovies: RecyclerView
         private lateinit var favoriteMoviesAdapter: MovieListAdapter
         private var movieListViewModel =  MovieListViewModel(null,null)
+    fun onSuccess(movies:List<Movie>){
+        favoriteMoviesAdapter.updateMovies(movies)
+    }
+    fun onError() {
+        val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
+        toast.show()
+    }
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             var view =  inflater.inflate(R.layout.favorites_fragment, container, false)
             favoriteMovies = view.findViewById(R.id.favoriteMovies)
             favoriteMovies.layoutManager = GridLayoutManager(activity, 2)
-            favoriteMoviesAdapter = MovieListAdapter(arrayListOf(),false) { movie,view,view2 -> showMovieDetails(movie,view,view2) }
+            favoriteMoviesAdapter = MovieListAdapter(arrayListOf(),true) { movie,view,view2 -> showMovieDetails(movie,view,view2) }
             favoriteMovies.adapter=favoriteMoviesAdapter
             favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
+            context?.let {
+                movieListViewModel.getFavorites(
+                    requireContext(),onSuccess = ::onSuccess,
+                    onError = ::onError)
+            }
             return view;
         }
         companion object {

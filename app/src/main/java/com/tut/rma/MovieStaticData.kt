@@ -1,5 +1,6 @@
 package com.tut.rma
 
+import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONException
@@ -10,6 +11,25 @@ import java.net.MalformedURLException
 import java.net.URL
 
 object MovieRepository {
+    suspend fun getFavoriteMovies(context: Context) : List<Movie> {
+        return withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            var movies = db!!.movieDao().getAll()
+            return@withContext movies
+        }
+    }
+    suspend fun writeFavorite(context: Context,movie:Movie) : String?{
+        return withContext(Dispatchers.IO) {
+            try{
+                var db = AppDatabase.getInstance(context)
+                db!!.movieDao().insertAll(movie)
+                return@withContext "success"
+            }
+            catch(error:Exception){
+                return@withContext null
+            }
+        }
+    }
     suspend fun getUpcomingMovies(
     ) : GetMoviesResponse?{
         return withContext(Dispatchers.IO) {

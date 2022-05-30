@@ -8,9 +8,11 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,6 +34,7 @@ class MainActivity2 : AppCompatActivity() {
     private lateinit var budon: BottomNavigationView
     private lateinit var frego: FragmentContainerView
     private lateinit var backdrop : ImageView
+    private lateinit var addFavorite:Button
     private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.accters -> {
@@ -55,10 +58,24 @@ class MainActivity2 : AppCompatActivity() {
         }
         false
     }
+    fun writeDB(){
+        movieDetailViewModel.writeDB(applicationContext,this.movie,onSuccess = ::onSuccess1,
+            onError = ::onError)
+    }
+    fun onSuccess1(message:String){
+        val toast = Toast.makeText(applicationContext, "Spaseno", Toast.LENGTH_SHORT)
+        toast.show()
+        addFavorite.visibility= View.GONE
+    }
+    fun onError() {
+        val toast = Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT)
+        toast.show()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         backdrop=findViewById(R.id.movie_backdrop)
+        addFavorite=findViewById(R.id.addFavourite)
         budon=findViewById(R.id.dugmad)
         frego=findViewById(R.id.fragmentContainerView2)
         budon.setOnItemSelectedListener(mOnItemSelectedListener)
@@ -78,6 +95,9 @@ class MainActivity2 : AppCompatActivity() {
 
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
+        }
+        addFavorite.setOnClickListener {
+            writeDB()
         }
         title.setOnClickListener{
             val webIntent: Intent = Uri.parse("https://www.youtube.com/results?search_query="+movie.title).let { webpage ->

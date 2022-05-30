@@ -12,11 +12,20 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 import androidx.viewpager2.adapter.FragmentViewHolder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.tut.rma.*
-
+@Dao
+interface MovieDao {
+    @Query("SELECT * FROM movie")
+   fun getAll(): List<Movie>
+    @Insert
+   fun insertAll(vararg movies: Movie)
+}
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var freg:FrameLayout
