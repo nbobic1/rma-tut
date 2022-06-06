@@ -20,12 +20,12 @@ class SearchFragment : Fragment() {
     private lateinit var searchText: EditText
     private lateinit var dugme: ImageButton
     private lateinit var rec:RecyclerView
-    var movielistViewModel=MovieListViewModel(this@SearchFragment::searchDone,this@SearchFragment::onError)
+    var movielistViewModel= context?.let { MovieListViewModel(it) }
     private lateinit var ada:MovieListAdapter
     private fun onClick() {
         val toast = Toast.makeText(context, "Search start", Toast.LENGTH_SHORT)
         toast.show()
-        movielistViewModel.search(searchText.text.toString())
+      //  movielistViewModel.search(searchText.text.toString())
     }
     fun searchDone(movies:List<Movie>){
         val toast = Toast.makeText(context, "Search done", Toast.LENGTH_SHORT)
@@ -58,7 +58,7 @@ class SearchFragment : Fragment() {
             dugme.setOnClickListener {
                 val toast = Toast.makeText(context, "Search start", Toast.LENGTH_SHORT)
                 toast.show()
-                movielistViewModel.search(searchText.text.toString())
+                //movielistViewModel.search(searchText.text.toString())
             }
             rec=view.findViewById(R.id.searchMovies)
             rec.layoutManager = GridLayoutManager(activity, 2)

@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Pair as UtilPair
 class FavoriteMoviesFragment : Fragment() {
         private lateinit var favoriteMovies: RecyclerView
         private lateinit var favoriteMoviesAdapter: MovieListAdapter
-        private var movieListViewModel =  MovieListViewModel(null,null)
+        private var movieListViewModel = context?.let { MovieListViewModel(it) }
     fun onSuccess(movies:List<Movie>){
         favoriteMoviesAdapter.updateMovies(movies)
     }
@@ -28,12 +29,12 @@ class FavoriteMoviesFragment : Fragment() {
             favoriteMovies.layoutManager = GridLayoutManager(activity, 2)
             favoriteMoviesAdapter = MovieListAdapter(arrayListOf(),true) { movie,view,view2 -> showMovieDetails(movie,view,view2) }
             favoriteMovies.adapter=favoriteMoviesAdapter
-            favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
-            context?.let {
-                movieListViewModel.getFavorites(
-                    requireContext(),onSuccess = ::onSuccess,
-                    onError = ::onError)
+            movieListViewModel?.let { favoriteMoviesAdapter.updateMovies(it.getFavoriteMovies()) }
+            context?.let { movieListViewModel= MovieListViewModel(it) }
+            val moviesObserver = Observer<List<Movie>> { movies ->
+                favoriteMoviesAdapter.updateMovies(movies)
             }
+            movieListViewModel?.favoriteMovies?.observe(viewLifecycleOwner, moviesObserver)
             return view;
         }
         companion object {

@@ -23,16 +23,16 @@ class RecentMoviesFragment : Fragment() {
         val toast = Toast.makeText(context, "Search error", Toast.LENGTH_SHORT)
         toast.show()
     }
-    private var movieListViewModel =  MovieListViewModel(null,null)
+    private var movieListViewModel = context?.let { MovieListViewModel(it) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view =  inflater.inflate(R.layout.recent_fragment, container, false)
         favoriteMovies = view.findViewById(R.id.favoriteMovies)
         favoriteMovies.layoutManager = GridLayoutManager(activity, 2)
         favoriteMoviesAdapter = MovieListAdapter(arrayListOf(),true) { movie,view,view2 -> showMovieDetails(movie,view,view2) }
         favoriteMovies.adapter=favoriteMoviesAdapter
-        favoriteMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
+        movieListViewModel?.let { favoriteMoviesAdapter.updateMovies(it.getRecentMovies()) }
         println("faklčjjjfjfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-        movieListViewModel.getUpcoming( onSuccess = ::onSuccess, onError = ::onError )
+     //   movieListViewModel.getUpcoming( onSuccess = ::onSuccess, onError = ::onError )
         return view;
     }
     companion object {

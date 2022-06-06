@@ -1,6 +1,7 @@
 package com.tut.rma
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONException
@@ -11,12 +12,10 @@ import java.net.MalformedURLException
 import java.net.URL
 
 object MovieRepository {
-    suspend fun getFavoriteMovies(context: Context) : List<Movie> {
-        return withContext(Dispatchers.IO) {
-            var db = AppDatabase.getInstance(context)
-            var movies = db!!.movieDao().getAll()
-            return@withContext movies
-        }
+    fun getFavorites(context1: Context) : LiveData<List<Movie>> {
+        var db = AppDatabase.getInstance(context1)
+        var movies = db!!.movieDao().getAll()
+        return movies
     }
     suspend fun writeFavorite(context: Context,movie:Movie) : String?{
         return withContext(Dispatchers.IO) {

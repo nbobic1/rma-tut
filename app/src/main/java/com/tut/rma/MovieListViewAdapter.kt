@@ -13,22 +13,15 @@ sealed class Result<out R> {
     data class Success<out T>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
 }
-class MovieListViewModel (private val searchDone: ((movies: List<Movie>) -> Unit)?,
-                          private val onError: (()->Unit)?
-) {
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
-    fun getFavorites(context: Context, onSuccess: (movies: List<Movie>) -> Unit,
+class MovieListViewModel (private val context1: Context)
+ {
+    val favoriteMovies = MovieRepository.getFavorites(context1)
+        fun getFavorites(context: Context, onSuccess: (movies: List<Movie>) -> Unit,
                      onError: () -> Unit){
-        scope.launch{
-            val result = MovieRepository.getFavoriteMovies(context)
-            when (result) {
-                is List<Movie> -> onSuccess?.invoke(result)
-                else-> onError?.invoke()
-            }
-        }
+
     }
 
-    fun search(query: String){
+    /*fun search(query: String){
         // Kreira se Coroutine na UI
         scope.launch{
             // Vrši se poziv servisa i suspendira se rutina dok se `withContext` ne završi
@@ -66,7 +59,7 @@ class MovieListViewModel (private val searchDone: ((movies: List<Movie>) -> Unit
             }
         }
     }
-
+*/
     fun getFavoriteMovies():List<Movie>{
         return MovieRepository.getFavoriteMovies();
     }
